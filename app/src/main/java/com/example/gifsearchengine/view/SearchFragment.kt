@@ -1,10 +1,7 @@
 package com.example.gifsearchengine.view
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -30,9 +27,6 @@ import retrofit2.Response
 lateinit var recyclerView: RecyclerView
 lateinit var mainActivity: MainActivity
 
-const val SHARED_PREFS_PHRASE = "PhraseSharedPrefs"
-const val PHRASE = "phrase"
-
 /**
  * A simple [Fragment] subclass.
  * Use the [SearchFragment.newInstance] factory method to
@@ -54,26 +48,20 @@ class SearchFragment : Fragment() {
 
         mainActivity = activity as MainActivity
         recyclerView = view.findViewById(R.id.gifImagesRecyclerView)
+        var phraseText : EditText = view.findViewById(R.id.editTextPhrase)
 
-        setRecyclerView(recyclerView)
+        setRecyclerView(recyclerView, phraseText.text.toString())
 
-        val phraseText: EditText = view.findViewById(R.id.editTextPhrase)
         val buttonSearch: Button = view.findViewById(R.id.buttonSearch)
-
         buttonSearch.setOnClickListener(View.OnClickListener { view ->
             val phrase : String = phraseText.text.toString()
             loadGifs(recyclerView, phrase)
-
-            val editor: SharedPreferences.Editor = mainActivity.getSharedPreferences(
-                    SHARED_PREFS_PHRASE, Context.MODE_PRIVATE).edit()
-            editor.putString(PHRASE, phrase)
-            editor.apply()
         })
 
         return view
     }
 
-    private fun setRecyclerView(recyclerView: RecyclerView, phrase: String = "") {
+    private fun setRecyclerView(recyclerView: RecyclerView, phrase: String) {
         val gifList: GifList? = loadGifs(recyclerView, phrase)
         val adapter = gifList?.let { GifsCustomAdapter(it, mainActivity) }
 
@@ -90,13 +78,13 @@ class SearchFragment : Fragment() {
         recyclerView.adapter = adapter
     }
 
-    private fun loadGifs(recyclerView: RecyclerView, phase: String) : GifList? {
+    private fun loadGifs(recyclerView: RecyclerView, phrase: String) : GifList? {
         val service = ApiService.buildService(Service::class.java)
 
-        val requestCall = if (phase == ("")) {
+        val requestCall = if (phrase == ("")) {
             service.getTrendingGifs()
         } else {
-            service.getGifsBySearch(phase)
+            service.getGifsBySearch(phrase)
         }
 
         var gifList : GifList? = null
@@ -121,18 +109,16 @@ class SearchFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        val editor: SharedPreferences.Editor = mainActivity.getSharedPreferences(
-                SHARED_PREFS_PHRASE, Context.MODE_PRIVATE).edit()
-        editor.putString(PHRASE, "")
-        editor.apply()
+        mainActivity = activity as MainActivity
+        var phraseText : EditText = mainActivity.findViewById(R.id.editTextPhrase)
+        setRecyclerView(recyclerView, phraseText.text.toString())
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-
-        val prefs: SharedPreferences = mainActivity.getSharedPreferences(SHARED_PREFS_PHRASE, Context.MODE_PRIVATE)
-        val phrase = prefs.getString(PHRASE, "") as String
-        setRecyclerView(recyclerView, phrase)
+        mainActivity = activity as MainActivity
+        var phraseText : EditText = mainActivity.findViewById(R.id.editTextPhrase)
+        setRecyclerView(recyclerView, phraseText.text.toString())
     }
 
     companion object {
