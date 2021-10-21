@@ -55,7 +55,7 @@ class SearchFragment : Fragment() {
         mainActivity = activity as MainActivity
         recyclerView = view.findViewById(R.id.gifImagesRecyclerView)
 
-        setRecyclerView(recyclerView, "")
+        setRecyclerView(recyclerView)
 
         val phraseText: EditText = view.findViewById(R.id.editTextPhrase)
         val buttonSearch: Button = view.findViewById(R.id.buttonSearch)
@@ -73,7 +73,7 @@ class SearchFragment : Fragment() {
         return view
     }
 
-    private fun setRecyclerView(recyclerView: RecyclerView, phrase: String) {
+    private fun setRecyclerView(recyclerView: RecyclerView, phrase: String = "") {
         val gifList: GifList? = loadGifs(recyclerView, phrase)
         val adapter = gifList?.let { GifsCustomAdapter(it, mainActivity) }
 
