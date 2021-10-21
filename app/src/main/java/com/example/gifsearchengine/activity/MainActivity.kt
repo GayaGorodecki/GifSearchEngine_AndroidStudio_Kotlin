@@ -1,7 +1,8 @@
 package com.example.gifsearchengine.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentTransaction
 import com.example.gifsearchengine.R
@@ -20,5 +21,10 @@ class MainActivity : AppCompatActivity() {
 
         fragmentTransaction = fragmentManager!!.beginTransaction()
         fragmentTransaction.replace(R.id.fragmentCon, SearchFragment()).commit()
+    }
+
+    fun setFragment(fragment: Fragment) {
+        fragmentTransaction = fragmentManager.beginTransaction()
+        fragmentTransaction.replace(R.id.fragmentCon, fragment).addToBackStack(null).commit()
     }
 }

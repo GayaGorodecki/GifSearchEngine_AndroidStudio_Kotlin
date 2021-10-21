@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.gifsearchengine.GifList
 import com.example.gifsearchengine.R
+import com.example.gifsearchengine.view.FullScreenGifFragment
+import com.example.gifsearchengine.view.mainActivity
 
 class GifsCustomAdapter(private val values: GifList, private val context: Context) :
     RecyclerView.Adapter<GifsCustomAdapter.MyViewHolder>() {
@@ -26,6 +28,11 @@ class GifsCustomAdapter(private val values: GifList, private val context: Contex
             .asGif()
             .error(R.drawable.error_page)
             .into(holder.gifImageView)
+
+        var path : String = values.gifs[position].images.fixed_height.url
+        holder.gifImageView?.setOnClickListener(View.OnClickListener { View ->
+            mainActivity.setFragment(FullScreenGifFragment.newInstance(path))
+        })
     }
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
