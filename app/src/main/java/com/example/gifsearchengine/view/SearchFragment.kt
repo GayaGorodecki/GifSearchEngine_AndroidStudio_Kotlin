@@ -68,10 +68,10 @@ class SearchFragment : Fragment() {
         val orientation = resources.configuration.orientation
         if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
             // In landscape
-            recyclerView.layoutManager = GridLayoutManager(mainActivity, 4)
+            recyclerView.layoutManager = GridLayoutManager(mainActivity, 5)
         } else {
             // In portrait
-            recyclerView.layoutManager = GridLayoutManager(mainActivity, 2)
+            recyclerView.layoutManager = GridLayoutManager(mainActivity, 3)
         }
 
         recyclerView.setHasFixedSize(true)
