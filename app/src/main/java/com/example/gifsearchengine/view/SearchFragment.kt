@@ -1,25 +1,25 @@
 package com.example.gifsearchengine.view
 
+import android.app.Activity
 import android.content.res.Configuration
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.gifsearchengine.ApiService
-import com.example.gifsearchengine.GifList
-import com.example.gifsearchengine.R
-import com.example.gifsearchengine.Service
+import com.example.gifsearchengine.*
 import com.example.gifsearchengine.activity.MainActivity
 import com.example.gifsearchengine.adapter.GifsCustomAdapter
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -41,12 +41,14 @@ class SearchFragment : Fragment() {
         }
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
         var view: View = inflater.inflate(R.layout.fragment_search, container, false)
-
         mainActivity = activity as MainActivity
+
         recyclerView = view.findViewById(R.id.gifImagesRecyclerView)
         var phraseText : EditText = view.findViewById(R.id.editTextPhrase)
 
@@ -54,11 +56,19 @@ class SearchFragment : Fragment() {
 
         val buttonSearch: Button = view.findViewById(R.id.buttonSearch)
         buttonSearch.setOnClickListener(View.OnClickListener { view ->
-            val phrase : String = phraseText.text.toString()
+            val phrase: String = phraseText.text.toString()
             loadGifs(recyclerView, phrase)
+            hideKeyboard(mainActivity)
         })
 
         return view
+    }
+
+    fun hideKeyboard(activity: Activity) {
+        val inputMethodManager: InputMethodManager =
+            activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+
+        inputMethodManager.hideSoftInputFromWindow(activity.currentFocus?.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
     }
 
     private fun setRecyclerView(recyclerView: RecyclerView, phrase: String) {
