@@ -1,5 +1,7 @@
 package com.example.gifsearchengine
 
+import com.example.gifsearchengine.model.CategoriesList
+import com.example.gifsearchengine.view.CategoriesFragment
 import okhttp3.OkHttpClient
 import retrofit2.Call
 import retrofit2.Retrofit
@@ -14,6 +16,9 @@ interface Service {
 
     @GET("/v1/gifs/search?api_key=Zz7XnA0RZzJJetQAQv1e2c7ErivA9F5u")
     fun getGifsBySearch(@Query("q") search: String): Call<GifList>
+
+    @GET("/v1/gifs/categories?api_key=Zz7XnA0RZzJJetQAQv1e2c7ErivA9F5u")
+    fun getCategories(): Call<CategoriesList>
 }
 
 object ApiService {

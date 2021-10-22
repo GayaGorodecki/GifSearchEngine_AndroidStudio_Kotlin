@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gifsearchengine.*
+import com.example.gifsearchengine.Services.Settings
 import com.example.gifsearchengine.activity.MainActivity
 import com.example.gifsearchengine.adapter.GifsCustomAdapter
 import retrofit2.Call
@@ -52,11 +53,12 @@ class SearchFragment : Fragment() {
         recyclerView = view.findViewById(R.id.gifImagesRecyclerView)
         var phraseText : EditText = view.findViewById(R.id.editTextPhrase)
 
-        setRecyclerView(recyclerView, phraseText.text.toString())
+        setRecyclerView(recyclerView, Settings.phrase)
 
         val buttonSearch: Button = view.findViewById(R.id.buttonSearch)
         buttonSearch.setOnClickListener(View.OnClickListener { view ->
             val phrase: String = phraseText.text.toString()
+            Settings.phrase = phrase
             loadGifs(recyclerView, phrase)
             hideKeyboard(mainActivity)
         })
@@ -119,16 +121,12 @@ class SearchFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        mainActivity = activity as MainActivity
-        var phraseText : EditText = mainActivity.findViewById(R.id.editTextPhrase)
-        setRecyclerView(recyclerView, phraseText.text.toString())
+        setRecyclerView(recyclerView, Settings.phrase)
     }
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
-        mainActivity = activity as MainActivity
-        var phraseText : EditText = mainActivity.findViewById(R.id.editTextPhrase)
-        setRecyclerView(recyclerView, phraseText.text.toString())
+        setRecyclerView(recyclerView, Settings.phrase)
     }
 
     companion object {

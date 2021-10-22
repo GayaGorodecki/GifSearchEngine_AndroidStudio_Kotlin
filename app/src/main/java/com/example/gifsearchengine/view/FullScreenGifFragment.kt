@@ -39,7 +39,7 @@ class FullScreenGifFragment(private val path: String) : Fragment() {
 
         var gif : ImageView = view.findViewById(R.id.imageViewFullGif)
 
-        Glide.with(context).load(param1).asGif().error(R.drawable.error_page).into(gif)
+        Glide.with(context).load(param1).asGif().error(R.drawable.gif).into(gif)
 
         return view
     }

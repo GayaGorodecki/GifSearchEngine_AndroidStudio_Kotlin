@@ -1,11 +1,25 @@
 package com.example.gifsearchengine.view
 
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.gifsearchengine.ApiService
+import com.example.gifsearchengine.GifList
 import com.example.gifsearchengine.R
+import com.example.gifsearchengine.Service
+import com.example.gifsearchengine.adapter.CategoriesCustomAdapter
+import com.example.gifsearchengine.adapter.GifsCustomAdapter
+import com.example.gifsearchengine.model.CategoriesList
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,7 +49,53 @@ class CategoriesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_categories, container, false)
+        var view: View = inflater.inflate(R.layout.fragment_categories, container, false)
+
+        recyclerView = view.findViewById(R.id.recyclerViewCategories)
+        setRecyclerView(recyclerView)
+
+        return view
+    }
+
+    private fun setRecyclerView(recyclerView: RecyclerView) {
+        val categoriesList: CategoriesList? = loadCategories(recyclerView)
+        val adapter = categoriesList?.let { CategoriesCustomAdapter(it, mainActivity) }
+
+        val orientation = resources.configuration.orientation
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            // In landscape
+            recyclerView.layoutManager = GridLayoutManager(mainActivity, 2)
+        } else {
+            // In portrait
+            recyclerView.layoutManager = LinearLayoutManager(mainActivity)
+        }
+
+        recyclerView.setHasFixedSize(true)
+        recyclerView.adapter = adapter
+    }
+
+    private fun loadCategories(recyclerView: RecyclerView) : CategoriesList? {
+        val service = ApiService.buildService(Service::class.java)
+        var requestCall = service.getCategories()
+
+        var categoriesList : CategoriesList? = null
+        requestCall.enqueue(object : Callback<CategoriesList> {
+            override fun onResponse(call: Call<CategoriesList>, response: Response<CategoriesList>) {
+                if (response.isSuccessful) {
+                    categoriesList = response.body()!!
+                    recyclerView.apply {
+                        setHasFixedSize(true)
+                        adapter = CategoriesCustomAdapter(response.body()!!, mainActivity)
+                    }
+                }
+            }
+
+            override fun onFailure(call: Call<CategoriesList>, t: Throwable) {
+                Toast.makeText(mainActivity, "Error loading categories $t", Toast.LENGTH_SHORT).show()
+            }
+        })
+
+        return categoriesList
     }
 
     companion object {

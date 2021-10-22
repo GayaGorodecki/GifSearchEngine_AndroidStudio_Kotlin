@@ -26,7 +26,7 @@ class GifsCustomAdapter(private val values: GifList, private val context: Contex
         Glide.with(context)
             .load(values.gifs[position].images.fixed_height.url)
             .asGif()
-            .error(R.drawable.error_page)
+            .error(R.drawable.ic_launcher_foreground)
             .into(holder.gifImageView)
 
         var path : String = values.gifs[position].images.fixed_height.url
