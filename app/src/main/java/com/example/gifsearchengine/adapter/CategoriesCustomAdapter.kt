@@ -8,7 +8,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gifsearchengine.R
+import com.example.gifsearchengine.Services.Settings
 import com.example.gifsearchengine.model.CategoriesList
+import com.example.gifsearchengine.view.SearchFragment
 import com.example.gifsearchengine.view.mainActivity
 
 class CategoriesCustomAdapter(private val values: CategoriesList, private val context: Context) :
@@ -26,7 +28,8 @@ class CategoriesCustomAdapter(private val values: CategoriesList, private val co
         holder.textViewCategory?.text = values.categories[position].name
 
         holder.textViewCategory?.setOnClickListener(View.OnClickListener { View ->
-            // TODO: 22/10/2021 search category gifs
+            Settings.phrase = values.categories[position].name
+            mainActivity.setFragment(SearchFragment())
         })
     }
 
