@@ -8,25 +8,24 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.example.gifsearchengine.R
-import java.nio.file.Path
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
+private const val ARG_PARAM1 = "gifPath"
 
 /**
  * A simple [Fragment] subclass.
  * Use the [FullScreenGifFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class FullScreenGifFragment(private val path: String) : Fragment() {
+class FullScreenGifFragment : Fragment() {
     // TODO: Rename and change types of parameters
-    private var param1: String? = null
+    private var gifPath: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
+            gifPath = it.getString(ARG_PARAM1)
         }
     }
 
@@ -39,7 +38,7 @@ class FullScreenGifFragment(private val path: String) : Fragment() {
 
         var gif : ImageView = view.findViewById(R.id.imageViewFullGif)
 
-        Glide.with(context).load(param1).asGif().error(R.drawable.gif).into(gif)
+        Glide.with(context).load(gifPath).asGif().error(R.drawable.gif).into(gif)
 
         return view
     }
@@ -56,7 +55,7 @@ class FullScreenGifFragment(private val path: String) : Fragment() {
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String) =
-            FullScreenGifFragment(ARG_PARAM1).apply {
+            FullScreenGifFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                 }

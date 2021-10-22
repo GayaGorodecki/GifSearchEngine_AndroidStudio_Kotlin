@@ -21,8 +21,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
-// TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 
 lateinit var recyclerView: RecyclerView
@@ -117,16 +115,6 @@ class SearchFragment : Fragment() {
         })
 
         return gifList
-    }
-
-    override fun onResume() {
-        super.onResume()
-        setRecyclerView(recyclerView, Settings.phrase)
-    }
-
-    override fun onConfigurationChanged(newConfig: Configuration) {
-        super.onConfigurationChanged(newConfig)
-        setRecyclerView(recyclerView, Settings.phrase)
     }
 
     companion object {
