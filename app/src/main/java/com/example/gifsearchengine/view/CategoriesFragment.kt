@@ -1,11 +1,15 @@
 package com.example.gifsearchengine.view
 
 import android.content.res.Configuration
+import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.view.animation.Animation
+import android.view.animation.ScaleAnimation
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -53,7 +57,6 @@ class CategoriesFragment : Fragment() {
 
         recyclerView = view.findViewById(R.id.recyclerViewCategories)
         setRecyclerView(recyclerView)
-
         return view
     }
 

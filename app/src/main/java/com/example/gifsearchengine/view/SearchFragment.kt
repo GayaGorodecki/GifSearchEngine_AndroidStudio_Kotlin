@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.ScaleAnimation
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
@@ -61,6 +63,8 @@ class SearchFragment : Fragment() {
             hideKeyboard(mainActivity)
         })
 
+        phraseText.setText(Settings.phrase)
+
         return view
     }
 
@@ -78,10 +82,10 @@ class SearchFragment : Fragment() {
         val orientation = resources.configuration.orientation
         if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
             // In landscape
-            recyclerView.layoutManager = GridLayoutManager(mainActivity, 5)
+            recyclerView.layoutManager = GridLayoutManager(mainActivity, 4)
         } else {
             // In portrait
-            recyclerView.layoutManager = GridLayoutManager(mainActivity, 3)
+            recyclerView.layoutManager = GridLayoutManager(mainActivity, 2)
         }
 
         recyclerView.setHasFixedSize(true)
