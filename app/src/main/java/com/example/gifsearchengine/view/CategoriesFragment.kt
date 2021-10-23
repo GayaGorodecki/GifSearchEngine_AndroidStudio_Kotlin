@@ -55,9 +55,23 @@ class CategoriesFragment : Fragment() {
         // Inflate the layout for this fragment
         var view: View = inflater.inflate(R.layout.fragment_categories, container, false)
 
+        scaleView(view)
+
         recyclerView = view.findViewById(R.id.recyclerViewCategories)
         setRecyclerView(recyclerView)
         return view
+    }
+
+    fun scaleView(v: View) {
+        val anim: Animation = ScaleAnimation(
+            0f, 1f,  // Start and end values for the X axis scaling
+            1f, 1f,  // Start and end values for the Y axis scaling
+            Animation.RELATIVE_TO_SELF, 0f,  // Pivot point of X scaling
+            Animation.RELATIVE_TO_SELF, 1f
+        ) // Pivot point of Y scaling
+        anim.fillAfter = true // Needed to keep the result of the animation
+        anim.duration = 1000
+        v.startAnimation(anim)
     }
 
     private fun setRecyclerView(recyclerView: RecyclerView) {

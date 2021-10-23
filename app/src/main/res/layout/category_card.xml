@@ -17,8 +17,12 @@
             android:id="@+id/textViewCategory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="7dp"
             android:layout_weight="1"
-            android:padding="10dp"
+            android:padding="16dp"
+            android:shadowColor="#FADA493C"
+            android:shadowRadius="10"
+            android:text="exmple"
             android:textColor="@color/white"
             android:textSize="30sp" />
     </androidx.cardview.widget.CardView>
