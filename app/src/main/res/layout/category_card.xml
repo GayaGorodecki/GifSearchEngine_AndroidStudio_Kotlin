@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        app:cardBackgroundColor="#FF8A80"
+        app:cardBackgroundColor="#F7BA00"
         app:cardCornerRadius="24dp">
 
         <TextView
@@ -20,9 +20,8 @@
             android:layout_marginLeft="7dp"
             android:layout_weight="1"
             android:padding="16dp"
-            android:shadowColor="#FADA493C"
+            android:shadowColor="#989393"
             android:shadowRadius="10"
-            android:text="exmple"
             android:textColor="@color/white"
             android:textSize="30sp" />
     </androidx.cardview.widget.CardView>
