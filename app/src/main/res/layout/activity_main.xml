@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="7dp"
             android:background="@drawable/home_btn_design"
-            app:backgroundTint="#B3B4B5" />
+            app:backgroundTint="#B3B4B5"/>
 
         <Button
             android:id="@+id/buttonCategories"

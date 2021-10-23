@@ -70,7 +70,7 @@ class CategoriesFragment : Fragment() {
             Animation.RELATIVE_TO_SELF, 1f
         ) // Pivot point of Y scaling
         anim.fillAfter = true // Needed to keep the result of the animation
-        anim.duration = 1000
+        anim.duration = 800
         v.startAnimation(anim)
     }
 
