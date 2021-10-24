@@ -1,6 +1,6 @@
 # GifSearchEngine_AndroidStudio_Kotlin
 
-Android app for search and preview GIFs by term or by category.
+Android app using Giphy API for search and preview GIFs by term or by category.
 
 ### ScreenShots (GIFs):
 
